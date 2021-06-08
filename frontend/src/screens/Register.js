@@ -21,7 +21,6 @@ const Register = ({ location, history }) => {
       dispatch(register(username, email, password))
     }
   }
-  // const redirect = location.search ? location.search.split('=')[1] : '/'
   const dispatch = useDispatch()
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInformation } = userRegister

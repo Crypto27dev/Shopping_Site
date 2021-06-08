@@ -1,22 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import Loading from '../components/Loading'
-import {
-  PRODUCT_SEARCH_CLEAR,
-  PRODUCT_DETAILS_CLEAR,
-} from '../constants/ProductConstants'
+import { Link } from 'react-router-dom'
+import { PRODUCT_SEARCH_CLEAR } from '../constants/ProductConstants'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails } from '../actions/productActions'
+import {
+  listProductDetails,
+  createProductReview,
+} from '../actions/productActions'
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/ProductConstants'
+import Message from '../components/Message'
 import Rating from '../components/Rating'
 const ProductScreen = ({ match }) => {
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product, error } = productDetails
+  const userLogin = useSelector((state) => state.userLogin)
+  const {
+    loading: loadingLogin,
+    error: errorLogin,
+    userInformation,
+  } = userLogin
+  const productReviewCreate = useSelector((state) => state.productReviewCreate)
+  const {
+    success: successProductReview,
+    loading: loadingProductReview,
+    error: errorProductReview,
+  } = productReviewCreate
   const productId = match.params.id
-
+  const submitHandler = (e) => {
+    e.preventDefault()
+    dispatch(
+      createProductReview(productId, {
+        stars,
+        description,
+      })
+    )
+  }
+  const [stars, setStars] = useState(0)
+  const [description, setDescription] = useState('')
   useEffect(() => {
+    if (successProductReview) {
+      setStars(0)
+      setDescription('')
+    }
     dispatch({ type: PRODUCT_SEARCH_CLEAR })
     dispatch(listProductDetails(productId))
-  }, [productId])
+
+    if (product && product._id !== productId) {
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
+    }
+  }, [productId, successProductReview, dispatch])
 
   return (
     <div className='product-screen-outermost'>
@@ -119,7 +152,9 @@ const ProductScreen = ({ match }) => {
                       <span className='star-section'>
                         <Rating value={review.stars} />
                       </span>
-                      <span>{review.date}</span>
+                      <span>
+                        {review.createdAt && review.createdAt.substring(0, 10)}
+                      </span>
                       <span>{review.description}</span>
                       <div className='underline'></div>
                     </div>
@@ -127,16 +162,49 @@ const ProductScreen = ({ match }) => {
               </div>
               <div className='your-review'>
                 <h3>Write your review</h3>
-                <select name='' id=''>
-                  <option value=''>Select...</option>
-                  <option value='1'>1 - Poor</option>
-                  <option value='2'>2 - Fair</option>
-                  <option value='3'>3 - Good</option>
-                  <option value='4'>4 - Very Good</option>
-                  <option value='5'>5 - Excellent</option>
-                </select>
-                <textarea name='' id='' cols='4' rows='4'></textarea>{' '}
-                <button>Submit</button>
+                {userInformation ? (
+                  <>
+                    {loadingProductReview && <Loading />}
+                    {errorProductReview && (
+                      <Message message={errorProductReview} color='red' />
+                    )}
+                    {successProductReview && (
+                      <Message message='Successfully reviewed' color='green' />
+                    )}
+                    <select
+                      name=''
+                      id=''
+                      value={stars}
+                      onChange={(e) => setStars(e.target.value)}
+                    >
+                      <option value=''>Select...</option>
+                      <option value='1'>1 - Poor</option>
+                      <option value='2'>2 - Fair</option>
+                      <option value='3'>3 - Good</option>
+                      <option value='4'>4 - Very Good</option>
+                      <option value='5'>5 - Excellent</option>
+                    </select>
+                    <textarea
+                      name=''
+                      id=''
+                      cols='4'
+                      rows='4'
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    ></textarea>{' '}
+                    <button onClick={submitHandler}>Submit</button>
+                  </>
+                ) : (
+                  <>
+                    <span>
+                      You must{' '}
+                      <Link to='/login'>
+                        <span style={{ color: 'green' }}>Log In</span>
+                      </Link>{' '}
+                      to comment
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </div>
