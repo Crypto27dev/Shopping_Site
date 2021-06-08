@@ -18,7 +18,7 @@ const Register = ({ location, history }) => {
     if (password !== passwordagain) {
       setMessage('Passwords do not match')
     } else {
-      dispatch(register(username, email, password))
+      dispatch(register(username, email, password, 'formfillup'))
     }
   }
   const dispatch = useDispatch()

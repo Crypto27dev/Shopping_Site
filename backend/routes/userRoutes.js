@@ -6,34 +6,75 @@ import capitalize from '../utils/capitalize.js'
 const router = express.Router()
 
 router.post(
-  '/register',
+  '/register/:funcNumber',
   asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
     console.log('hello')
-    const userExists = await User.findOne({ email })
+    const { name, email, password } = req.body
 
-    if (userExists) {
-      res.status(400)
-      throw new Error('User already exists')
-    }
+    console.log(req.params.funcNumber)
+    const operation = req.params.funcNumber
+    if (operation == 'formfillup') {
+      console.log('formfillup')
+      const userExists = await User.findOne({ email })
 
-    const user = await User.create({
-      name,
-      email,
-      password,
-    })
+      if (userExists) {
+        res.status(400)
+        throw new Error('User already exists')
+      }
 
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: capitalize(user.name),
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
+      const user = await User.create({
+        name,
+        email,
+        password,
       })
+
+      if (user) {
+        res.status(201).json({
+          _id: user._id,
+          name: capitalize(user.name),
+          email: user.email,
+          isAdmin: user.isAdmin,
+          token: generateToken(user._id),
+        })
+      } else {
+        res.status(400)
+        throw new Error('Invalid user data')
+      }
     } else {
-      res.status(400)
-      throw new Error('Invalid user data')
+      console.log('googlesignin')
+      console.log(req.body)
+      const userExists = await User.findOne({ email })
+      if (userExists) {
+        //code goes here
+        console.log('user already exists')
+        res.status(201).json({
+          _id: userExists._id,
+          name: userExists.name,
+          email: userExists.email,
+          isAdmin: userExists.isAdmin,
+          token: generateToken(userExists._id),
+        })
+      } else {
+        const password = email + Date.now()
+        const user = await User.create({
+          name,
+          email,
+          password,
+        })
+
+        if (user) {
+          res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id),
+          })
+        } else {
+          res.status(400)
+          throw new Error('Invalid user data')
+        }
+      }
     }
   })
 )
