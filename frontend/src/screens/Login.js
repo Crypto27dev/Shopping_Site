@@ -53,6 +53,12 @@ const Login = ({ history }) => {
           </div>
           <button type='submit'>Sign In</button>
         </form>
+        <span>Or, login with</span>
+        <button className='google-btn'>
+          <img src='/Images/google1.jpg' alt='' />
+          <span className="g-text"> Log In with Google</span>
+        </button>
+
         <span>Not Registered Yet?</span>
         <Link to='/register'>Register</Link>
       </div>

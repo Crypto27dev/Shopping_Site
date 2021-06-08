@@ -145,7 +145,7 @@ const ProductScreen = ({ match }) => {
             <div className='product-screen-bottom'>
               <div className='reviews'>
                 <h3>Customer Reviews</h3>
-                {product.reviews &&
+                {product.reviews ? (
                   product.reviews.map((review) => (
                     <div className='reviews-inner' key={review._id}>
                       <span>{review.reviewedBy}</span>
@@ -158,7 +158,10 @@ const ProductScreen = ({ match }) => {
                       <span>{review.description}</span>
                       <div className='underline'></div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <span>Be the first to review this product</span>
+                )}
               </div>
               <div className='your-review'>
                 <h3>Write your review</h3>

@@ -753,6 +753,16 @@ justify-content: space-between;
 
 }
 
+.reviews-inner span:nth-child(1){
+  font-size: 15px;
+}
+.reviews-inner span:nth-child(3){
+  font-size: 13px;
+}
+.reviews-inner span:nth-child(4){
+  font-size: 14px;
+  color:blue
+}
 .your-review, select, textarea{
 padding: 10px;
 
@@ -918,4 +928,30 @@ padding-top: auto;
 }
 .new-customer{
   font-size: 13px;
+}
+
+.google-btn{
+  display: flex;
+  height:35px;
+  padding: 2px 10px;
+width: 50%;
+/* justify-content: space-around; */
+  margin-bottom: 5px;
+  align-items: center;
+  cursor: pointer;
+  border:none;
+  
+  outline:none;
+  background: rgb(45,114,246);
+color:white;
+}
+.google-btn img{
+  width:25px;
+  height: 25px;
+  background: transparent;
+  object-fit: cover;
+  margin-left: 5px;
+}
+.g-text{
+  margin-left: 20px;
 }
