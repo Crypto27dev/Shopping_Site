@@ -9,3 +9,4 @@ const Message = ({ message, color }) => {
 }
 
 export default Message
+

@@ -912,3 +912,10 @@ padding-top: auto;
   padding: 2px;
   }
 
+.fa-user{
+  color:black;
+  margin-top: 5px;
+}
+.new-customer{
+  font-size: 13px;
+}

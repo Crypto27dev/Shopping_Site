@@ -92,7 +92,7 @@ const Navbar = () => {
                 <Link to='/login' onClick={showAuthOptions}>
                   Sign In
                 </Link>
-                <span>New Customer?</span>
+                <span className="new-customer">New Customer?</span>
                 <Link to='/register' onClick={showAuthOptions}>
                   Register
                 </Link>{' '}

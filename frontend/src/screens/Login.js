@@ -4,7 +4,8 @@ import { login } from '../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
-const Login = ({ location, history }) => {
+import { USER_LOGIN_CLEAR } from '../constants/userConstants'
+const Login = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(login(email, password))
@@ -16,6 +17,11 @@ const Login = ({ location, history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   useEffect(() => {
+    if (error) {
+      dispatch({
+        type: USER_LOGIN_CLEAR,
+      })
+    }
     if (userInformation) {
       window.history.back()
     }
