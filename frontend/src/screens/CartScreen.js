@@ -30,7 +30,7 @@ const CartScreen = ({ match, location, history }) => {
   return (
     <div className='cartScreen-outer'>
       <button
-        style={{ marginBottom: '10px' }}
+        style={{ marginBottom: '10px', background: 'rgb(97,63,153)' }}
         onClick={() => window.history.back()}
       >
         Go Back

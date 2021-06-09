@@ -111,10 +111,10 @@ const Navbar = () => {
                 </Link>
                 <div className='underline'></div>
                 <Link
-                  to={`/my-account/orders/${userInfo._id}`}
+                  to={`/myorders/${userInfo._id}`}
                   onClick={showAuthOptions}
                 >
-                  Orders
+                  My Orders
                 </Link>
                 <div className='underline'></div>
 

@@ -9,7 +9,10 @@ import SubCategoryDetails from './screens/SubCategoryDetails'
 import ProductScreen from './screens/ProductScreen'
 import Login from './screens/Login'
 import CartScreen from './screens/CartScreen'
-
+import Shipping from './screens/Shipping'
+import Payment from './screens/Payment'
+import OrderScreen from './screens/OrderScreen'
+import MyOrders from './screens/MyOrders'
 const App = () => {
   return (
     <Router>
@@ -34,6 +37,10 @@ const App = () => {
         <Route path='/login' component={Login} exact />
         <Route path='/register' component={Register} exact />
         <Route path='/cart/:id?' component={CartScreen} />
+        <Route path='/shipping' component={Shipping} />
+        <Route path='/payment' component={Payment} />
+        <Route path='/placeorder' component={OrderScreen} />
+        <Route path='/myorders/:id' component={MyOrders} />
       </Switch>
       {/* <Footer /> */}
     </Router>

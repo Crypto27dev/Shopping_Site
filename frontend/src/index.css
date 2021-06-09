@@ -439,6 +439,15 @@ box-shadow: 0px 0px 4px -1px rgba(0,0,0,0.32);
   
     
   }
+  .gd{
+    text-align: center;
+  }
+  .orderscreen-controller span:nth-child(1){
+    text-align: center;
+  }
+  .orderscreen-outermost{
+    flex-direction: column !important;
+  }
   .cartScreen-inner{
     flex-direction: column !important;
     border:1px solid black;
@@ -524,6 +533,23 @@ top:35px;
 
 
 
+  }
+  .orderManage{
+    width: 350px !important;
+  }
+  .ordered-Items{
+    width: 350px !important;
+
+  }
+ .enabledCursor{
+   display: block;
+   text-align: center;
+   width:200px !important;
+ }
+  .checkoutContainer{
+    flex-direction: column;
+    gap:20px;
+    display: block;
   }
   .form-outermost{
     width:350px !important;
@@ -886,7 +912,7 @@ margin-bottom: 10px;
   outline:none;
   border:0.5px solid rgb(66, 66, 151);
 }
-.form-outermost form  button{
+.form-outermost form  button, .payButton, .placeorder-btn{
 display: block;
 width: 70%;
 height: 35px;
@@ -900,7 +926,9 @@ background: rgb(61,168,159);
 color:white;
 margin-bottom: 10px;
 }
-
+.form-outermost form  button:hover, .payButton:hover, .placeorder-btn:hover{
+  opacity: 0.8;
+}
 .form-outermost span:nth-child(3){
   text-align: center;
   font-size: 15px;
@@ -1063,4 +1091,155 @@ color:white;
   background:rgb(7,7,7) !important;
   width: 100%;
   
+}
+.disabledCursor { 
+  cursor: default;
+  opacity: 0.4;
+  padding: 5px;
+  
+}
+.enabledCursor{
+  background: rgb(97,63,153);
+  color:white;
+  padding: 5px;
+  border-radius: 10px;
+}
+.checkoutContainer{
+display: flex;
+align-items: center;
+width:60%;
+/* flex-direction: column; */
+justify-content: space-between;
+
+margin: auto;
+margin-top: 10px;
+padding:10px;
+}
+
+
+.form-control-payment{
+  width:60%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 30%;
+  padding: 20px;
+  height: 400px;
+  margin-top: 30px;
+  gap:40px;
+}
+
+.pay{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.pay span{
+  font-size: 30px;
+  text-align: center;
+text-transform: uppercase;
+}
+.orderscreen-outermost{
+  display: flex;
+  gap:20px;
+  padding:10px;
+  /* flex-direction: column; */
+}
+.orderscreen-inner-left{
+  flex: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+}
+
+.orderscreen-inner-right{
+  flex: 40%;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  padding: 10px;
+  align-items: center;
+  /* flex-direction: c; */
+}
+
+.orderscreen-controller{
+  padding:10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.orderscreen-controller span{
+  font-size: 15px;
+}
+.orderscreen-controller-right{
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  gap:10px;
+ 
+  width: 70%;
+}
+.orderscreen-controller-right span:nth-child(1){
+ 
+  width:70px;
+}
+.orderscreen-controller-right span:nth-child(2){
+ 
+  margin-left: 30px;
+  /* width:70px; */
+}
+
+.orderscreen-controller span:nth-child(1), .ordersum{
+  font-size: 25px;
+  font-weight: bold;
+
+}
+.myOrders-outermost{
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.myOrders-inner{
+  width:100%;
+display: flex;
+align-items: center;
+
+align-items: center;
+flex-direction: column;
+justify-content: center;
+gap:10px;
+}
+.orderset{
+  border:1px  solid black;
+  border-radius: 10px;
+
+}
+.my-text
+{
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.my-text-1{
+  text-align: center;
+  font-size: 20px;
+  margin: 10px 0;
+  margin-left: 10px;
+
+}
+
+.orderManage{
+  padding: 10px;
+  display: flex;
+  width: 500px;
+  flex-direction: column;
+
+}
+.fa-times-circle{
+  color:red;
+  font-size: 14px !important;
 }
