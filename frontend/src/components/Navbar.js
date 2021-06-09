@@ -13,7 +13,6 @@ const Navbar = () => {
     document.getElementById('extraitems').classList.toggle('show-list')
   }
   const Logout = () => {
-
     dispatch(logout())
     showAuthOptions()
   }
@@ -22,6 +21,9 @@ const Navbar = () => {
   const { loading, products, error } = productSearch
   const userLogin = useSelector((state) => state.userLogin)
   const { userInformation: userInfo } = userLogin
+
+  const cart = useSelector((state) => state.cart)
+  const { cartItems } = cart
   useEffect(() => {
     dispatch(productsSearch(text))
   }, [text])
@@ -71,10 +73,12 @@ const Navbar = () => {
         </div>
         {/* </div> */}
         <div className='shopping'>
-          <i className='fas fa-shopping-cart'>
-            {' '}
-            <span>5</span>
-          </i>
+          <Link to={`/cart/cartItems/?qty`}>
+            <i className='fas fa-shopping-cart'>
+              {' '}
+              {cartItems.length > 0 && <span>{cartItems.length}</span>}
+            </i>
+          </Link>
         </div>
         <div className='my-account' id='my-account'>
           <i className='far fa-user'></i>
@@ -92,7 +96,7 @@ const Navbar = () => {
                 <Link to='/login' onClick={showAuthOptions}>
                   Sign In
                 </Link>
-                <span className="new-customer">New Customer?</span>
+                <span className='new-customer'>New Customer?</span>
                 <Link to='/register' onClick={showAuthOptions}>
                   Register
                 </Link>{' '}

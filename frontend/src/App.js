@@ -8,6 +8,8 @@ import Register from './screens/Register'
 import SubCategoryDetails from './screens/SubCategoryDetails'
 import ProductScreen from './screens/ProductScreen'
 import Login from './screens/Login'
+import CartScreen from './screens/CartScreen'
+
 const App = () => {
   return (
     <Router>
@@ -31,6 +33,7 @@ const App = () => {
         />
         <Route path='/login' component={Login} exact />
         <Route path='/register' component={Register} exact />
+        <Route path='/cart/:id?' component={CartScreen} />
       </Switch>
       {/* <Footer /> */}
     </Router>

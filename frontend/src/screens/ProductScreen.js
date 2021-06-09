@@ -10,7 +10,7 @@ import {
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/ProductConstants'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ match,history }) => {
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product, error } = productDetails
@@ -36,6 +36,8 @@ const ProductScreen = ({ match }) => {
       })
     )
   }
+  const [qty, setQty] = useState(1)
+
   const [stars, setStars] = useState(0)
   const [description, setDescription] = useState('')
   useEffect(() => {
@@ -50,7 +52,9 @@ const ProductScreen = ({ match }) => {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
   }, [productId, successProductReview, dispatch])
-
+  const addToCartHandler = () => {
+    history.push(`/cart/${productId}?qty=${qty}`)
+  }
   return (
     <div className='product-screen-outermost'>
       {loading ? (
@@ -126,7 +130,10 @@ const ProductScreen = ({ match }) => {
 
                   <div className='form-control'>
                     <span>Quantity</span>
-                    <select>
+                    <select
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    >
                       {[...Array(product.quantity).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
@@ -137,7 +144,12 @@ const ProductScreen = ({ match }) => {
                   <div className='underline'></div>
 
                   <div className='form-control'>
-                    <button>Add to Cart</button>
+                    <button
+                      onClick={addToCartHandler}
+                      disabled={product.quantity === 0}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>

@@ -19,12 +19,18 @@ const importData = async () => {
     const createdUsers = await User.insertMany(users)
 
     const adminUser = createdUsers[0]._id
-
-    const sampleProducts = products.map((product) => {
-      return { ...product, user: adminUser }
+    const newProductList = products.map((product) => {
+      const discount = product.discount
+      const cost = product.cost
+      return {
+        ...product,
+        user: adminUser,
+        discountedCost: discount ? cost - (discount * cost) / 100 : cost,
+      }
     })
+    console.log(newProductList)
 
-    await Product.insertMany(sampleProducts)
+    await Product.insertMany(newProductList)
 
     console.log('Data Imported!')
     process.exit()

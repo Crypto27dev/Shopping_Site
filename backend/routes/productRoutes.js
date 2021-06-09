@@ -11,7 +11,6 @@ router.get(
     try {
       const data = await Product.find()
       if (data) {
-        console.log('Data', data)
         res.status(200).json(data)
       }
     } catch (error) {
@@ -24,16 +23,12 @@ router.get(
   '/category/:categoryName/:cost',
   asyncHandler(async (req, res) => {
     try {
-      console.log(req.params.cost)
-      console.log(req.params.categoryName)
-
       const data = await Product.find({
         category: req.params.categoryName,
 
-        cost: { $lt: req.params.cost },
+        discountedCost: { $lt: req.params.cost },
       })
       if (data) {
-        console.log('Data', data)
         res.status(200).json(data)
       }
     } catch (error) {
@@ -48,7 +43,6 @@ router.get(
     try {
       const data = await Product.findOne({ _id: req.params.id })
       if (data) {
-        console.log('Data', data)
         res.status(200).json(data)
       }
     } catch (error) {
@@ -60,15 +54,13 @@ router.get(
 router.get(
   '/subcategory/:subcategoryName/:cost',
   asyncHandler(async (req, res) => {
-    console.log('Sdfsd')
     try {
       const data = await Product.find({
         subCategory: req.params.subcategoryName,
 
-        cost: { $lt: req.params.cost },
+        discountedCost: { $lt: req.params.cost },
       })
       if (data) {
-        console.log('Data', data)
         res.status(200).json(data)
       }
     } catch (error) {
@@ -80,8 +72,6 @@ router.get(
 router.get(
   '/search/:productName',
   asyncHandler(async (req, res) => {
-    console.log('Sdfsd')
-    console.log('productName', req.params.productName)
     try {
       const data = await Product.find({
         brandName: { $regex: req.params.productName, $options: '$i' },
@@ -99,7 +89,6 @@ router.post(
   '/:id/reviews',
   protect,
   asyncHandler(async (req, res) => {
-    // console.log('productName', req.params.productName)
     const { stars, description } = req.body
     const product = await Product.findById(req.params.id)
     if (product) {
@@ -113,7 +102,6 @@ router.post(
       product.stars =
         product.reviews.reduce((acc, item) => item.stars + acc, 0) /
         product.reviews.length
-      // console.log('final product', product)
       await product.save()
       res.status(201).json({ message: 'Review added' })
     } else {
