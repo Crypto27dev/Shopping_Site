@@ -1013,10 +1013,11 @@ color:white;
 .cartScreen-right{
   flex:40%;
   border:1px solid black;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding:10px;
+  padding:20px 20px 10px 20px;
 
 }
 .cartScreen-right span{

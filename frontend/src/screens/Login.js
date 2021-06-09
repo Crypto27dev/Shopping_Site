@@ -10,7 +10,7 @@ import firebase from 'firebase'
 import { register } from '../actions/userActions'
 
 // import firebaseConfig from '../Firebase'
-const Login = ({ history }) => {
+const Login = ({ history, location }) => {
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTHDOMAIN,
@@ -20,7 +20,6 @@ const Login = ({ history }) => {
     appId: process.env.REACT_APP_APPID,
     measurementId: process.env.REACT_APP_MEASUREMENTID,
   }
-  console.log(firebaseConfig)
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
   }
@@ -32,9 +31,7 @@ const Login = ({ history }) => {
       .then((result) => {
         let credential = result.credential
         let token = credential.accessToken
-        console.log(credential)
         const user = result.user
-        console.log(user)
         dispatch(register(user.displayName, user.email, 'jpt', 'googlesignin'))
       })
       .catch((error) => {
@@ -52,18 +49,19 @@ const Login = ({ history }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInformation } = userLogin
-  console.log('redirect', history)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const redirect = location.search && location.search.split('=')[1]
+
   useEffect(() => {
     if (error) {
       dispatch({
         type: USER_LOGIN_CLEAR,
       })
     }
-    if (userInformation) {
-      window.history.back()
-    }
+    userInformation && redirect
+      ? history.push(redirect)
+      : userInformation && window.history.back()
   }, [history, userInformation])
   return (
     <div className='form-outer'>
@@ -99,7 +97,7 @@ const Login = ({ history }) => {
         </button>
 
         <span>Not Registered Yet?</span>
-        <Link to='/register'>Register</Link>
+        <Link to={`/register?redirect=${redirect}`}>Register</Link>
       </div>
     </div>
   )
