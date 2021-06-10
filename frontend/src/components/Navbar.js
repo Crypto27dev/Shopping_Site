@@ -83,7 +83,12 @@ const Navbar = () => {
         <div className='my-account' id='my-account'>
           <i className='far fa-user'></i>
           <div className='my-account-text' onClick={showAuthOptions}>
-            <span>Namaste {userInfo && userInfo.name}</span>
+            <span>
+              Namaste{' '}
+              {userInfo && userInfo.isAdmin
+                ? 'Admin'
+                : userInfo && userInfo.name}
+            </span>
             <div className='account-detail'>
               {' '}
               <span>My Account </span>
@@ -117,7 +122,26 @@ const Navbar = () => {
                   My Orders
                 </Link>
                 <div className='underline'></div>
-
+                {userInfo.isAdmin && (
+                  <>
+                    {' '}
+                    <Link to={`/admin/allOrders`} onClick={showAuthOptions}>
+                      All Orders
+                    </Link>
+                    <div className='underline'></div>
+                    <Link to={`/admin/allUsers`} onClick={showAuthOptions}>
+                      All Users
+                    </Link>
+                    <div className='underline'></div>
+                    <Link
+                      to={`/admin/newProductCreate`}
+                      onClick={showAuthOptions}
+                    >
+                      Create a new Product
+                    </Link>
+                    <div className='underline'></div>
+                  </>
+                )}
                 <button className='logout' onClick={Logout}>
                   Log Out
                 </button>

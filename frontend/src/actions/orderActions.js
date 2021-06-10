@@ -62,50 +62,45 @@ export const createOrder = (order) => async (dispatch, getState) => {
   }
 }
 
-export const payOrder =
-  (orderId, paymentResult) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: ORDER_PAY_REQUEST,
-      })
+export const payOrder = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_PAY_REQUEST,
+    })
 
-      const {
-        userLogin: { userInformation },
-      } = getState()
+    const {
+      userLogin: { userInformation },
+    } = getState()
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userInformation.token}`,
-        },
-      }
-
-      const { data } = await axios.put(
-        `/api/orders/${orderId}/pay`,
-        paymentResult,
-        config
-      )
-
-      dispatch({
-        type: ORDER_PAY_SUCCESS,
-        payload: data,
-      })
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      if (message === 'Not authorized, token failed') {
-        dispatch(logout())
-      }
-      dispatch({
-        type: ORDER_PAY_FAIL,
-        payload: message,
-      })
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInformation.token}`,
+      },
     }
-  }
+    console.log(config)
 
-export const deliverOrder = (order) => async (dispatch, getState) => {
+    const { data } = await axios.put(`/api/orders/admin/pay/${id}`, {}, config)
+    dispatch({
+      type: ORDER_PAY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ORDER_PAY_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const deliverOrder = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_DELIVER_REQUEST,
@@ -122,7 +117,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `/api/orders/${order._id}/deliver`,
+      `/api/orders/admin/delivery/${id}`,
       {},
       config
     )
@@ -199,7 +194,7 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/orders`, config)
+    const { data } = await axios.get(`/api/orders/admin/allorders`, config)
 
     dispatch({
       type: ORDER_LIST_SUCCESS,

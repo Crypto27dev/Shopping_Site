@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
-
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
@@ -35,6 +35,7 @@ const OrderScreen = ({ history }) => {
   const { order, success, error, loading } = orderCreate
   useEffect(() => {
     !userInfo && history.push('/')
+    dispatch({ type: ORDER_CREATE_RESET })
     success && history.push(`/myorders/${userInfo._id}`)
   }, [userInfo, success, history])
   const placeOrderHandler = () => {

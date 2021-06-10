@@ -43,12 +43,88 @@ router.get(
   protect,
   asyncHandler(async (req, res) => {
     const data = await Order.find({ user: req.user._id })
-    console.log('Data is', data)
     if (data) {
       res.status(201).json(data)
     } else {
       res.status(403)
       throw new Error('You have no orders yet')
+    }
+  })
+)
+//get particular order by admin
+router.get(
+  '/admin/order/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    console.log('Data is')
+
+    const data = await Order.findById({ _id: req.params.id })
+    if (data) {
+      res.status(201).json(data)
+    } else {
+      res.status(403)
+      throw new Error('Order not found')
+    }
+  })
+)
+router.get(
+  '/admin/allorders',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const data = await Order.find()
+    if (data) {
+      res.status(201).json(data)
+    } else {
+      res.status(403)
+      throw new Error('You have no orders till date admin')
+    }
+  })
+)
+
+router.put(
+  '/admin/delivery/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const order = await Order.findOne({ _id: req.params.id })
+    if (order) {
+      order.isDelivered = !order.isDelivered
+      await order.save()
+      res.status(201).json('Success')
+    } else {
+      res.status(401).json('Unauthorized')
+    }
+  })
+)
+
+router.put(
+  '/admin/pay/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const order = await Order.findOne({ _id: req.params.id })
+    if (order) {
+      order.isPaid = !order.isPaid
+      await order.save()
+      res.status(201).json('Success')
+    } else {
+      res.status(401).json('Unauthorized')
+    }
+  })
+)
+router.delete(
+  '/admin/deleteorder/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    try {
+      await Order.findByIdAndRemove({ _id: req.params.id })
+
+      res.status(201).json('Success')
+    } catch (error) {
+      res.status(401).json('Unauthorized')
     }
   })
 )

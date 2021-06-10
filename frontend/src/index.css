@@ -1243,3 +1243,26 @@ gap:10px;
   color:red;
   font-size: 14px !important;
 }
+.adminOrdersouter{
+  padding: 20px;
+}
+
+.adminOrder-inner{
+  
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  background: rgb(97,63,153);
+  color:white;
+  margin: auto;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
