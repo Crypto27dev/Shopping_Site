@@ -16,6 +16,8 @@ import MyOrders from './screens/MyOrders'
 import AdminOrders from './screens/AdminOrders'
 import OrderDetails from './screens/OrderDetails'
 import AdminProducts from './screens/AdminProducts'
+import AdminUsers from './screens/AdminUsers'
+
 const App = () => {
   return (
     <Router>
@@ -47,6 +49,8 @@ const App = () => {
         <Route path='/admin/allOrders' exact component={AdminOrders} />
         <Route path='/orderDetails/:id' component={OrderDetails} />
         <Route path='/admin/allProducts' exact component={AdminProducts} />
+        <Route path='/admin/allUsers' exact component={AdminUsers} />
+
       </Switch>
       {/* <Footer /> */}
     </Router>

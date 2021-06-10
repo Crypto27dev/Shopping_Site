@@ -2,6 +2,8 @@ import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 import User from '../models/User.js'
 import express from 'express'
+import { protect, admin } from '../middleware/authMiddleware.js'
+
 import capitalize from '../utils/capitalize.js'
 const router = express.Router()
 
@@ -97,6 +99,38 @@ router.post(
     } else {
       res.status(401)
       throw new Error('Invalid email or password')
+    }
+  })
+)
+
+router.get(
+  '/',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const users = await User.find().select('-password')
+
+    if (users) {
+      res.json(users)
+    } else {
+      res.status(401)
+      throw new Error('No users found')
+    }
+  })
+)
+
+router.delete(
+  '/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    try {
+    
+      await User.findByIdAndDelete({ _id: req.params.id })
+      res.status(201).json("Successfully deleted")
+    } catch (error) {
+      res.status(401)
+      throw new Error('No users found')
     }
   })
 )
