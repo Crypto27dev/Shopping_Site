@@ -85,6 +85,63 @@ router.get(
   })
 )
 
+//delete product
+
+router.delete(
+  '/product/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    try {
+      await Product.findByIdAndDelete({ _id: req.params.id })
+
+      res.status(200).json('success')
+    } catch (error) {
+      res.status(403).json(error)
+    }
+  })
+)
+//update product
+
+router.put(
+  '/product/:id',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    try {
+      const {
+        brandName,
+        image,
+        brand,
+        category,
+        subCategory,
+        description,
+        discount,
+        cost,
+        quantity,
+      } = req.body
+      const product = await Product.findById({ _id: req.params.id })
+      if (product) {
+        ;(product.brandName = brandName || product.brandName),
+          (product.image = image || product.image),
+          (product.brand = brand || product.brand),
+          (product.category = category || product.category),
+          (product.subCategory = subCategory || product.subCategory),
+          (product.description = description || product.description),
+          (product.discount = discount || product.discount),
+          (product.cost = cost || product.cost),
+          (product.quantity = quantity || product.quantity),
+          (product.discountedCost = product.discount
+            ? product.cost - (product.discount * product.cost) / 100
+            : product.cost)
+        const updatedProduct = await product.save()
+        res.status(201).json(updatedProduct)
+      }
+    } catch (error) {
+      res.status(403).json(error)
+    }
+  })
+)
 router.post(
   '/:id/reviews',
   protect,

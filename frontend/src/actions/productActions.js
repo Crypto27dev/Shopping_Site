@@ -18,6 +18,15 @@ import {
   PRODUCT_SUBCATEGORY_DETAILS_FAIL,
   PRODUCT_SUBCATEGORY_DETAILS_REQUEST,
   PRODUCT_SUBCATEGORY_DETAILS_SUCCESS,
+  PRODUCT_EDIT_FAIL,
+  PRODUCT_EDIT_REQUEST,
+  PRODUCT_EDIT_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_CREATE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_SUCCESS,
 } from '../constants/ProductConstants'
 import { logout } from './userActions'
 export const listProducts = () => async (dispatch) => {
@@ -176,3 +185,107 @@ export const createProductReview =
       })
     }
   }
+
+// edit product
+
+export const editProduct =
+  (
+    brandName,
+    image,
+    brand,
+    category,
+    subCategory,
+    description,
+    discount,
+    cost,
+    quantity,
+    id
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PRODUCT_EDIT_REQUEST,
+      })
+
+      const {
+        userLogin: { userInformation },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInformation.token}`,
+        },
+      }
+
+      await axios.post(
+        `/api/products/product/${id}`,
+        {
+          brandName,
+          image,
+          brand,
+          category,
+          subCategory,
+          description,
+          discount,
+          cost,
+          quantity,
+        },
+        config
+      )
+
+      dispatch({
+        type: PRODUCT_EDIT_SUCCESS,
+      })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: PRODUCT_EDIT_FAIL,
+        payload: message,
+      })
+    }
+  }
+
+//DELETE PRODUCT
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_DELETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInformation },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInformation.token}`,
+      },
+    }
+    console.log('config is', config)
+    await axios.delete(`/api/products/product/${id}`, config)
+
+    dispatch({
+      type: PRODUCT_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
+      payload: message,
+    })
+  }
+}

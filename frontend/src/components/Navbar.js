@@ -125,6 +125,10 @@ const Navbar = () => {
                 {userInfo.isAdmin && (
                   <>
                     {' '}
+                    <Link to={`/admin/allProducts`} onClick={showAuthOptions}>
+                      All Products
+                    </Link>
+                    <div className='underline'></div>
                     <Link to={`/admin/allOrders`} onClick={showAuthOptions}>
                       All Orders
                     </Link>

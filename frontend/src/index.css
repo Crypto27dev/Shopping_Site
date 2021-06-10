@@ -439,6 +439,7 @@ box-shadow: 0px 0px 4px -1px rgba(0,0,0,0.32);
   
     
   }
+ 
   .gd{
     text-align: center;
   }
@@ -973,6 +974,9 @@ padding-top: auto;
   color:black;
   padding: 2px;
   }
+  .weird a:hover{
+    background:rgb(187, 57, 57);
+  }
 
 .fa-user{
   color:black;
@@ -1248,16 +1252,22 @@ gap:10px;
 }
 
 .adminOrder-inner{
-  
+  overflow: auto;
+
 }
 
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 70%;
   background: rgb(97,63,153);
   color:white;
+  width:100%;
   margin: auto;
+  /* display: block;
+  margin: auto;
+  flex-direction: column; */
+  border:1px solid white !important;
+  overflow:auto !important;
 }
 
 td, th {

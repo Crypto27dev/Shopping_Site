@@ -20,7 +20,7 @@ const MyOrders = ({ history }) => {
       ) : (
         <div className='myOrders-inner'>
           <span className='my-text'>MY ORDERS</span>
-          {orders.length < 1 && (
+          {orders && orders.length < 1 && (
             <Message
               message='You have not made any orders till now'
               color='black'
