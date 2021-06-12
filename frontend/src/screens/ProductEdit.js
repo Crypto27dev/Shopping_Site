@@ -38,9 +38,6 @@ const ProductEdit = ({ history, match }) => {
   }
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log('Databottom')
-    console.log(image)
-    console.log('Databottomest')
 
     console.log(Img)
 

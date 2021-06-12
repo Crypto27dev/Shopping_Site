@@ -1,6 +1,8 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
 import Order from '../models/Order.js'
+import Product from '../models/Product.js'
+
 import { protect, admin } from '../middleware/authMiddleware.js'
 const router = express.Router()
 router.post(
@@ -91,6 +93,19 @@ router.put(
     const order = await Order.findOne({ _id: req.params.id })
     if (order) {
       order.isDelivered = !order.isDelivered
+      console.log(order.orderItems)
+      const func = order.orderItems.map(async (item) => {
+        const productinitial = await Product.findOne({ _id: item.product })
+        const quantityProd = productinitial.quantity
+
+        const product = await Product.findByIdAndUpdate(item.product, {
+          $inc: {
+            quantity: -item.qty,
+          },
+        })
+
+        console.log('updated', product)
+      })
       await order.save()
       res.status(201).json('Success')
     } else {
