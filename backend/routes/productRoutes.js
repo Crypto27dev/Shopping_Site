@@ -197,7 +197,7 @@ router.put(
       // console.log('product is', product)
       if (product) {
         ;(product.brandName = brandName),
-          (product.image = image),
+          (product.image = image || product.image),
           (product.brand = brand),
           (product.category = category),
           (product.subCategory = subCategory),

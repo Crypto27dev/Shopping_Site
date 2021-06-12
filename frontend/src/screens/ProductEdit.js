@@ -34,12 +34,13 @@ const ProductEdit = ({ history, match }) => {
     const formData = new FormData()
     formData.append('image', file)
     dispatch(uploadImg(formData))
-    setImage(Img.url)
+    setImage(Img)
+    console.log('up', image)
   }
+
   const submitHandler = (e) => {
     e.preventDefault()
-
-    console.log(Img)
+    console.log(' HERE ', image)
 
     dispatch(
       editProduct(

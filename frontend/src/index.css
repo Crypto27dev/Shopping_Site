@@ -397,7 +397,7 @@ text-align: left;
   margin-left: 30px;
 }
 .container{
-  padding:10px 80px;
+  padding:10px 80px 0 80px;
 }
 .shopping-items{
   display: grid;
@@ -535,6 +535,11 @@ top:35px;
 
 
   }
+  .product-create-inner{
+   flex-direction: column;
+  
+  }
+  
   .orderManage{
     width: 350px !important;
   }

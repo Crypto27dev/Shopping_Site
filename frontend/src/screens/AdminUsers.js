@@ -45,7 +45,7 @@ const AdminUsers = ({ history }) => {
               {users.map((user) => (
                 <tr key={user._id}>
                   <td>{user._id}</td>
-                  <td>{user.createdAt.substring(0, 10)}</td>
+                  <td>{user.createdAt?.substring(0, 10)}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
 

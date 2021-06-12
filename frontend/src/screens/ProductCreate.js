@@ -102,6 +102,7 @@ const ProductCreate = ({ history }) => {
                 type='text'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
             <div className='control-form'>
@@ -112,6 +113,7 @@ const ProductCreate = ({ history }) => {
                 name='img'
                 accept='image/*'
                 onChange={imgHandler}
+                required
               />
             </div>
             <div className='control-form'>
@@ -199,6 +201,7 @@ const ProductCreate = ({ history }) => {
                 type='text'
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
+                required
               />
             </div>
           </div>
@@ -211,6 +214,7 @@ const ProductCreate = ({ history }) => {
                 value={cost}
                 min='1'
                 onChange={(e) => setCost(e.target.value)}
+                required
               />
             </div>
             <div className='control-form'>
@@ -229,6 +233,7 @@ const ProductCreate = ({ history }) => {
                 value={quantity}
                 min='1'
                 onChange={(e) => setQuantity(e.target.value)}
+                required
               />
             </div>
             <div className='control-form'>
@@ -238,7 +243,8 @@ const ProductCreate = ({ history }) => {
                 type=''
                 value={description}
                 rows='4'
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)} 
+                required
               />
             </div>
           </div>

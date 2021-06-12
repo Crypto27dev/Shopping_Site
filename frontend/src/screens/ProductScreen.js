@@ -10,7 +10,7 @@ import {
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/ProductConstants'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
-const ProductScreen = ({ match,history }) => {
+const ProductScreen = ({ match, history }) => {
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product, error } = productDetails
@@ -72,7 +72,7 @@ const ProductScreen = ({ match,history }) => {
                   {product.stars && (
                     <Rating className='star-edit' value={product.stars} />
                   )}
-                  {product.reviews.length > 0 ? product.reviews.length : 0}{' '}
+                  {product.reviews?.length > 0 ? product.reviews.length : 0}{' '}
                   reviews
                 </span>
                 <div className='underline'></div>
