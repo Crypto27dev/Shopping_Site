@@ -11,6 +11,7 @@ import {
   productCreateReducer,
   productDeleteReducer,
   productEditReducer,
+  productImageReducer,
 } from './reducers/productReducers'
 import {
   orderCreateReducer,
@@ -48,6 +49,7 @@ const reducer = combineReducers({
   productEdit: productEditReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
+  uploadImage: productImageReducer,
 })
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))

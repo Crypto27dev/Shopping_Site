@@ -27,6 +27,9 @@ import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
+  PRODUCT_UPLOADIMAGE_FAIL,
+  PRODUCT_UPLOADIMAGE_SUCCESS,
+  PRODUCT_UPLOADIMAGE_REQUEST,
 } from '../constants/ProductConstants'
 import { logout } from './userActions'
 export const listProducts = () => async (dispatch) => {
@@ -217,8 +220,9 @@ export const editProduct =
           Authorization: `Bearer ${userInformation.token}`,
         },
       }
+      console.log("id is",id)
 
-      await axios.post(
+      await axios.put(
         `/api/products/product/${id}`,
         {
           brandName,
@@ -285,6 +289,116 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: PRODUCT_DELETE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+//create product
+
+export const createProduct =
+  (
+    brandName,
+    image,
+    brand,
+    category,
+    subCategory,
+    description,
+    discount,
+    cost,
+    quantity
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PRODUCT_CREATE_REQUEST,
+      })
+
+      const {
+        userLogin: { userInformation },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInformation.token}`,
+        },
+      }
+
+      const { data } = await axios.post(
+        `/api/products/productCreate`,
+        {
+          brandName,
+          image,
+          brand,
+          category,
+          subCategory,
+          description,
+          discount,
+          cost,
+          quantity,
+        },
+        config
+      )
+
+      dispatch({
+        type: PRODUCT_CREATE_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: PRODUCT_CREATE_FAIL,
+        payload: message,
+      })
+    }
+  }
+
+// upload Image
+
+export const uploadImg = (formData) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_UPLOADIMAGE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInformation },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInformation.token}`,
+      },
+    }
+
+    const { data } = await axios.post(
+      `/api/products/uploadImage`,
+      formData,
+      config
+    )
+
+    dispatch({
+      type: PRODUCT_UPLOADIMAGE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: PRODUCT_UPLOADIMAGE_FAIL,
       payload: message,
     })
   }

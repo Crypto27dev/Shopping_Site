@@ -1,10 +1,81 @@
 import Product from '../models/Product.js'
 import asyncHandler from 'express-async-handler'
 import express from 'express'
+import dotenv from 'dotenv'
+import multer from 'multer'
+import path from 'path'
+import fs from 'fs'
 import { protect, admin } from '../middleware/authMiddleware.js'
+import cloudinary from 'cloudinary'
+dotenv.config()
+const cloudinaryconfig = cloudinary.v2
+
+cloudinaryconfig.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+})
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log('value', path.extname(file.originalname))
+    console.log('file', file)
+    cb(null, 'Images')
+  },
+  filename: function (req, file, cb) {
+    console.log('path', path)
+    // console.log('value', path.extname(file.originalname))
+    cb(null, Date.now() + path.extname(file.originalname))
+  },
+})
+const fileFilter = async (req, file, cb) => {
+  const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png']
+  if (allowedFileTypes.includes(file.mimetype)) {
+    console.log('reached inside multer')
+    cb(null, true)
+  } else {
+    req.filevalidationerror = 'Unsupported file format'
+    return cb(null, req.filevalidationerror, false)
+  }
+}
+let upload = multer({ storage, fileFilter })
 
 const router = express.Router()
 
+router.route('/uploadImage').post(
+  upload.single('image'),
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    console.log('reached here')
+
+    const photopath = req.file.path
+
+    if (req.filevalidationerror) {
+      fs.unlink(photopath, function (err) {
+        console.log('reached here')
+        if (err) return console.log(err)
+        console.log('file deleted successfully')
+      })
+      res.status(401).json({ msg: req.filevalidationerror })
+    } else {
+      try {
+        await cloudinary.uploader.upload(photopath, function (result, error) {
+          console.log('result', result)
+          const url = result.url
+          fs.unlink(photopath, function (err) {
+            console.log('reached here')
+            if (err) return console.log(err)
+            console.log('file deleted successfully')
+          })
+          res.status(201)
+          res.json(url)
+        })
+      } catch (error) {
+        res.status(400).json({ msg: error })
+      }
+    }
+  })
+)
 router.get(
   '/',
   asyncHandler(async (req, res) => {
@@ -120,28 +191,81 @@ router.put(
         cost,
         quantity,
       } = req.body
+      console.log('id', req.params.id)
+      console.log(req.body)
       const product = await Product.findById({ _id: req.params.id })
+      // console.log('product is', product)
       if (product) {
-        ;(product.brandName = brandName || product.brandName),
-          (product.image = image || product.image),
-          (product.brand = brand || product.brand),
-          (product.category = category || product.category),
-          (product.subCategory = subCategory || product.subCategory),
-          (product.description = description || product.description),
-          (product.discount = discount || product.discount),
-          (product.cost = cost || product.cost),
-          (product.quantity = quantity || product.quantity),
+        ;(product.brandName = brandName),
+          (product.image = image),
+          (product.brand = brand),
+          (product.category = category),
+          (product.subCategory = subCategory),
+          (product.description = description),
+          (product.discount = discount),
+          (product.cost = cost),
+          (product.quantity = quantity),
           (product.discountedCost = product.discount
             ? product.cost - (product.discount * product.cost) / 100
             : product.cost)
         const updatedProduct = await product.save()
-        res.status(201).json(updatedProduct)
+        if (updatedProduct) {
+          res.status(201).json('Successfully updated')
+        } else {
+          res.status(401).json(error)
+        }
       }
     } catch (error) {
       res.status(403).json(error)
     }
   })
 )
+
+// create a new product
+
+router.post(
+  '/productCreate',
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    try {
+      console.log('reached')
+      const {
+        brandName,
+        image,
+        brand,
+        category,
+        subCategory,
+        description,
+        discount,
+        cost,
+        quantity,
+      } = req.body
+      console.log(req.body)
+
+      const discountedCost = discount ? cost - (discount * cost) / 100 : cost
+
+      await Product.create({
+        user: req.user,
+        brandName,
+        image,
+        brand,
+        category,
+        subCategory,
+        description,
+        discount,
+        cost,
+        quantity,
+        discountedCost,
+      })
+
+      res.status(201).json('Product created successfully')
+    } catch (error) {
+      res.status(403).json(error)
+    }
+  })
+)
+
 router.post(
   '/:id/reviews',
   protect,

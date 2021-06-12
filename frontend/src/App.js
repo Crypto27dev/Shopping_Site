@@ -17,7 +17,8 @@ import AdminOrders from './screens/AdminOrders'
 import OrderDetails from './screens/OrderDetails'
 import AdminProducts from './screens/AdminProducts'
 import AdminUsers from './screens/AdminUsers'
-
+import ProductCreate from './screens/ProductCreate'
+import ProductEdit from './screens/ProductEdit'
 const App = () => {
   return (
     <Router>
@@ -50,6 +51,10 @@ const App = () => {
         <Route path='/orderDetails/:id' component={OrderDetails} />
         <Route path='/admin/allProducts' exact component={AdminProducts} />
         <Route path='/admin/allUsers' exact component={AdminUsers} />
+        <Route path='/admin/ProductCreate' exact component={ProductCreate} />
+        <Route path='/admin/ProductEdit/:id' exact component={ProductEdit} />
+
+
 
       </Switch>
       {/* <Footer /> */}

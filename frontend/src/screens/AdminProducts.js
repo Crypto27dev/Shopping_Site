@@ -21,7 +21,9 @@ const AdminProducts = ({ history }) => {
     !userInfo && history.push('/')
     dispatch(listProducts())
   }, [userInfo, history, loadingDelete])
-  const EditHandler = (id) => {}
+  const EditHandler = (id) => {
+    history.push(`/admin/productEdit/${id}`)
+  }
   const DeleteHandler = (id) => {
     dispatch(deleteProduct(id))
   }

@@ -137,10 +137,7 @@ const Navbar = () => {
                       All Users
                     </Link>
                     <div className='underline'></div>
-                    <Link
-                      to={`/admin/newProductCreate`}
-                      onClick={showAuthOptions}
-                    >
+                    <Link to={`/admin/ProductCreate`} onClick={showAuthOptions}>
                       Create a new Product
                     </Link>
                     <div className='underline'></div>

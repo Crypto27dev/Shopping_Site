@@ -913,7 +913,7 @@ margin-bottom: 10px;
   outline:none;
   border:0.5px solid rgb(66, 66, 151);
 }
-.form-outermost form  button, .payButton, .placeorder-btn{
+.form-outermost form  button, .payButton, .btn-product, .placeorder-btn{
 display: block;
 width: 70%;
 height: 35px;
@@ -927,7 +927,7 @@ background: rgb(61,168,159);
 color:white;
 margin-bottom: 10px;
 }
-.form-outermost form  button:hover, .payButton:hover, .placeorder-btn:hover{
+.form-outermost form  button:hover,.btn-product:hover,  .payButton:hover, .placeorder-btn:hover{
   opacity: 0.8;
 }
 .form-outermost span:nth-child(3){
@@ -1275,4 +1275,74 @@ td, th {
   text-align: left;
   padding: 8px;
 }
+.product-create{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.product-create-inner{
+  padding:10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap:10px;
 
+}
+
+
+.product-create-left{
+  flex:50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+ 
+
+}
+.product-create-right{
+  flex:50%;
+  display: flex;
+  height: 100% !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content:flex-start !important;
+  padding: 5px;
+  /* border:1px solid red; */
+
+}
+
+.control-form{
+  display: flex;
+  align-items: center;
+flex-direction:column;
+padding: 10px;
+width:75%;
+gap:10px;
+/* border:1px solid red !important; */
+margin-bottom: 10px;
+-webkit-box-shadow: 3px 3px 17px 3px rgba(0,0,0,0.11); 
+box-shadow: 3px 3px 17px 3px rgba(0,0,0,0.11);
+}
+
+.control-form label{
+  width:90%;
+text-align: center;
+padding: 5px;
+color:rgb(97,63,153);
+
+}
+
+.control-form input{
+  outline: none;
+  border:1px solid rgb(97,63,153)!important;
+padding: 8px;
+width: 70%;
+border-radius: 5px;
+}
+.form-control select{
+  width: 60%;
+}
+
+.product-create form{
+  width: 100%;
+}
