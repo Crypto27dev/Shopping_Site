@@ -46,9 +46,11 @@ Link to the website [Click here](https://lit-sands-82234.herokuapp.com/)
 #### How to get Started?
 
 Install the backend dependencies on root folder using `npm install` command.
-Set your own credentials for cloudinary and mongodb database on the root folder inside a.env file.
+
+Set your own credentials for cloudinary and mongodb database on the root folder inside a .env file.
 
 Move to frontend folder and install frontend dependencies using `npm install` command.
+
 For Google authentication set your own firebase credentials inside a .env file in the frontend folder.
 
 And there you go...boom!
