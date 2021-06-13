@@ -42,7 +42,7 @@ import {
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [] }
+      return { loading: true, ...state }
     case PRODUCT_LIST_SUCCESS:
       return { loading: false, products: action.payload }
     case PRODUCT_LIST_FAIL:
@@ -101,7 +101,7 @@ export const productsubCategoryReducer = (state = { products: [] }, action) => {
 export const productSearchReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_SEARCH_REQUEST:
-      return { loading: true, products: [] }
+      return { loading: true, ...state }
     case PRODUCT_SEARCH_SUCCESS:
       return { loading: false, products: action.payload }
     case PRODUCT_SEARCH_FAIL:

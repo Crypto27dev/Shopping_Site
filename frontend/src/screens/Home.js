@@ -22,6 +22,7 @@ const Home = () => {
           <p className='top-picks'>Top picks for you</p>
           <div className='shopping-items'>
             {products &&
+              products.length > 0 &&
               products.map((item) => (
                 <ProductCard key={item._id} product={item} />
               ))}
