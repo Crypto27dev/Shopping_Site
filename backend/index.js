@@ -12,6 +12,10 @@ const app = express()
 app.use(express.json())
 
 const __dirname = path.resolve()
+
+app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))
   app.get('*', (req, res) =>
@@ -22,9 +26,6 @@ if (process.env.NODE_ENV === 'production') {
     res.send('API is running...')
   })
 }
-app.use('/api/products', productRoutes)
-app.use('/api/users', userRoutes)
-app.use('/api/orders', orderRoutes)
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode
   console.log('err', err)

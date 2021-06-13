@@ -25,7 +25,7 @@ const Navbar = () => {
   const { cartItems } = cart
   useEffect(() => {
     dispatch(productsSearch(text))
-  }, [dispatch,text])
+  }, [text])
   const showAuthOptions = () => {
     document.getElementById('showOptions').classList.toggle('showOptionsList')
   }
@@ -46,7 +46,7 @@ const Navbar = () => {
             onChange={(e) => setText(e.target.value)}
           />
           <i className='fas fa-search'></i>
-          {/* <div className='search-results'>
+          <div className='search-results'>
             {loading && <Loading />}
             {products &&
               products.length > 0 &&
@@ -69,7 +69,7 @@ const Navbar = () => {
                   <div className='underline'></div>
                 </div>
               ))}
-          </div> */}
+          </div>
         </div>
         {/* </div> */}
         <div className='shopping'>
@@ -158,7 +158,7 @@ const Navbar = () => {
           onChange={(e) => setText(e.target.value)}
         />
         <i className='fas fa-search'></i>
-        {/* <div className='search-results'>
+        <div className='search-results'>
           {loading && <Loading />}
           {products &&
             products.length > 0 &&
@@ -181,7 +181,7 @@ const Navbar = () => {
                 <div className='underline'></div>
               </div>
             ))}
-        </div> */}
+        </div>
       </div>
       <div className='extra-items' id='extraitems'>
         <div className='category-shop'>
