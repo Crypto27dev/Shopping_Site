@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
 import { USER_LOGIN_CLEAR } from '../constants/userConstants'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import { register } from '../actions/userActions'
 
 // import firebaseConfig from '../Firebase'

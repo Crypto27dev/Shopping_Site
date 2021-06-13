@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { productsSearch } from '../actions/productActions'
 import Loading from './Loading'
-import { USER_LOGOUT } from '../constants/userConstants'
 import { logout } from '../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux'
 
