@@ -918,6 +918,7 @@ margin-bottom: 10px;
   outline:none;
   border:0.5px solid rgb(66, 66, 151);
 }
+
 .form-outermost form  button, .payButton, .btn-product, .placeorder-btn, .userUpdate{
 display: block;
 width: 70%;
@@ -945,6 +946,8 @@ margin-bottom: 10px;
   display: block;
 width: 40%;
 padding:10px;
+height: 35px;
+
 cursor: pointer;
 text-align: center;
 border-radius: 5px;
