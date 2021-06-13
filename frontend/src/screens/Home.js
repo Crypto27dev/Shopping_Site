@@ -11,7 +11,7 @@ const Home = () => {
   const { loading, products, error } = productList
   useEffect(() => {
     dispatch(listProducts())
-  }, [])
+  }, [dispatch])
   return (
     <div className=''>
       <ImageCarousel />

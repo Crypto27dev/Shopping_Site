@@ -23,9 +23,9 @@ const Navbar = () => {
 
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
-  // useEffect(() => {
-  //   dispatch(productsSearch(text))
-  // }, [text])
+  useEffect(() => {
+    dispatch(productsSearch(text))
+  }, [dispatch,text])
   const showAuthOptions = () => {
     document.getElementById('showOptions').classList.toggle('showOptionsList')
   }
