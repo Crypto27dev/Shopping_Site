@@ -10,7 +10,7 @@ connectDB()
 
 const app = express()
 app.use(express.json())
-
+const PORT = 5000 || process.env.PORT
 const __dirname = path.resolve()
 
 app.use('/api/products', productRoutes)
@@ -35,6 +35,6 @@ app.use((err, req, res, next) => {
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   })
 })
-app.listen(process.env.PORT, () => {
-  console.log(`Backend running on port ${process.env.PORT}`)
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`)
 })
