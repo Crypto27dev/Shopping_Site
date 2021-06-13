@@ -49,6 +49,7 @@ const Navbar = () => {
           <div className='search-results'>
             {loading && <Loading />}
             {products &&
+              products.length > 0 &&
               products.map((product) => (
                 <div className='searched'>
                   <div className='searchedItem' key={product._id}>
@@ -160,6 +161,7 @@ const Navbar = () => {
         <div className='search-results'>
           {loading && <Loading />}
           {products &&
+            products.length > 0 &&
             products.map((product) => (
               <div className='searched'>
                 <div className='searchedItem' key={product._id}>
