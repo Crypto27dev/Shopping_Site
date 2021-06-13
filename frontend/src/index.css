@@ -958,9 +958,13 @@ background: rgb(61,168,159);
 color:white;
 font-size: 14px;
 margin-bottom: 10px;
-padding-top: auto;
-}
 
+}
+.form-outermost a:hover{
+  opacity: 0.7;
+
+
+}
 .message{
   display: flex;
   justify-content: center;

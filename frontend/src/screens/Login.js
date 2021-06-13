@@ -23,6 +23,7 @@ const Login = ({ history, location }) => {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
   }
+  console.log('fbbase', process.env.REACT_APP_PROJECTID)
   var provider = new firebase.auth.GoogleAuthProvider()
   const signInGoogle = () => {
     firebase
