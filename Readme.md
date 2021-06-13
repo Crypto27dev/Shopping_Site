@@ -6,18 +6,31 @@ Link to the website [Click here](https://lit-sands-82234.herokuapp.com/)
 ## Some of the Screenshots
 
 <p align="center">
+Home Page
 
 <img src="/Images/Screenshot from 2021-06-13 13-22-39.png" width="800px">
 
+Live Search
+
 <img src="/Images/Screenshot from 2021-06-13 13-23-06.png" width="800px">
+
+Order Items
 
 <img src="/Images/Screenshot from 2021-06-13 13-24-03.png" width="800px">
 
+Admin Product Manage
+
 <img src="/Images/Screenshot from 2021-06-13 13-24-25.png" width="800px">
+
+Admin User Manage
 
 <img src="/Images/Screenshot from 2021-06-13 13-24-43.png" width="800px">
 
+Admin Order Manage
+
 <img src="/Images/Screenshot from 2021-06-13 13-24-55.png" width="800px">
+
+Filtering with Slider
 
 <img src="/Images/Screenshot from 2021-06-13 13-25-26.png" width="800px">
 
