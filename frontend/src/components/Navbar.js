@@ -15,7 +15,7 @@ const Navbar = () => {
     dispatch(logout())
     showAuthOptions()
   }
-  const [text, setText] = useState('')
+  const [text, setText] = useState(undefined)
   const productSearch = useSelector((state) => state.productSearch)
   const { loading, products, error } = productSearch
   const userLogin = useSelector((state) => state.userLogin)
