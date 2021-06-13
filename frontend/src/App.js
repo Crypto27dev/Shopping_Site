@@ -19,6 +19,7 @@ import AdminProducts from './screens/AdminProducts'
 import AdminUsers from './screens/AdminUsers'
 import ProductCreate from './screens/ProductCreate'
 import ProductEdit from './screens/ProductEdit'
+import UserAccountScreen from './screens/UserAccountScreen'
 const App = () => {
   return (
     <Router>
@@ -53,9 +54,7 @@ const App = () => {
         <Route path='/admin/allUsers' exact component={AdminUsers} />
         <Route path='/admin/ProductCreate' exact component={ProductCreate} />
         <Route path='/admin/ProductEdit/:id' exact component={ProductEdit} />
-
-
-
+        <Route path='/my-account/:id' exact component={UserAccountScreen} />
       </Switch>
       {/* <Footer /> */}
     </Router>

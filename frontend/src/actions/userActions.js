@@ -13,6 +13,14 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_UPDATE_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_RESET,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_RESET,
 } from '../constants/userConstants'
 export const register =
   (name, email, password, funcNumber) => async (dispatch) => {
@@ -161,4 +169,87 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT })
 
   localStorage.removeItem('userInformation')
+}
+
+// GET USER DETAILS
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    })
+
+    const {
+      userLogin: { userInformation },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInformation.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/users/user/${id}`, config)
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload: message,
+    })
+  }
+}
+
+// update profile
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_PROFILE_REQUEST,
+    })
+console.log("sdfsdf")
+    const {
+      userLogin: { userInformation },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInformation.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/users/updateUser`, user, config)
+
+    dispatch({
+      type: USER_UPDATE_PROFILE_SUCCESS,
+      payload: data,
+    })
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
+    })
+    localStorage.setItem('userInformation', JSON.stringify(data))
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_UPDATE_PROFILE_FAIL,
+      payload: message,
+    })
+  }
 }

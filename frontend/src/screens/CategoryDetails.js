@@ -35,7 +35,7 @@ const CategoryDetails = ({ match }) => {
               className='manageslider'
               value={value}
               min={100}
-              max={50000}
+              max={200000}
               orientation='horizontal'
               onChange={handleChange}
             />

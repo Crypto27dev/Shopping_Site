@@ -108,13 +108,13 @@ const Navbar = () => {
               </>
             ) : (
               <div className='weird'>
-                {/* <Link
+                <Link
                   to={`/my-account/${userInfo._id}`}
                   onClick={showAuthOptions}
                 >
                   My Account
                 </Link>
-                <div className='underline'></div> */}
+                <div className='underline'></div>
                 <Link
                   to={`/myorders/${userInfo._id}`}
                   onClick={showAuthOptions}

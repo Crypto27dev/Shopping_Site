@@ -26,6 +26,8 @@ import {
   userLoginReducer,
   userDeleteReducer,
   userListReducer,
+  userUpdateProfileReducer,
+  userDetailsReducer,
 } from './reducers/userReducers'
 import { cartReducer } from './reducers/cartReducers'
 
@@ -50,6 +52,8 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   uploadImage: productImageReducer,
+  updateProfile: userUpdateProfileReducer,
+  userDetails: userDetailsReducer,
 })
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))

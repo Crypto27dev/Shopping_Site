@@ -861,10 +861,10 @@ justify-content: center;
 
 }
 .rangeNumber span:nth-child(2){
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .rangeNumber span input{
-  width: 90%;
+  width: 130%;
   text-align: center;
 }
 .rangeNumber span span{
@@ -918,7 +918,7 @@ margin-bottom: 10px;
   outline:none;
   border:0.5px solid rgb(66, 66, 151);
 }
-.form-outermost form  button, .payButton, .btn-product, .placeorder-btn{
+.form-outermost form  button, .payButton, .btn-product, .placeorder-btn, .userUpdate{
 display: block;
 width: 70%;
 height: 35px;
@@ -932,7 +932,7 @@ background: rgb(61,168,159);
 color:white;
 margin-bottom: 10px;
 }
-.form-outermost form  button:hover,.btn-product:hover,  .payButton:hover, .placeorder-btn:hover{
+.form-outermost form  button:hover,.btn-product:hover,  .payButton:hover, .placeorder-btn:hover, .userUpdate:hover{
   opacity: 0.8;
 }
 .form-outermost span:nth-child(3){
@@ -1351,3 +1351,53 @@ border-radius: 5px;
 .product-create form{
   width: 100%;
 }
+
+.userScreen{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.head{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  }
+  .userScreen form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    /* border:1px solid rgb(97,63,153); */
+    gap:20px;
+    -webkit-box-shadow: 3px 3px 17px 3px rgba(0,0,0,0.11); 
+    box-shadow: 3px 3px 17px 3px rgba(0,0,0,0.11);
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  .userScreen form .user-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+    gap:5px;
+   
+  }
+
+  .user-form input{
+    width: 60%;
+    /* border:none; */
+    outline:none;
+    border:none;
+    border-radius: 10px;
+    border:1px solid rgb(97,63,153);
+    padding: 6px;
+  }
+

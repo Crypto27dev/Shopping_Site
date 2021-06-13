@@ -102,6 +102,36 @@ router.post(
     }
   })
 )
+//update user
+
+router.put(
+  '/updateUser',
+  protect,
+  asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id)
+    if (user) {
+      user.name = req.body.name || user.name
+      user.email = req.body.email || user.email
+
+      if (req.body.password) {
+        user.password = req.body.password
+      }
+      const updatedUser = await user.save()
+
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+        token: generateToken(updatedUser._id),
+      })
+    } else {
+      res.status(401)
+      console.log(error)
+      res.json('error')
+    }
+  })
+)
 
 router.get(
   '/',
@@ -118,16 +148,29 @@ router.get(
     }
   })
 )
+router.get(
+  '/user/:id',
+  protect,
+  asyncHandler(async (req, res) => {
+    console.log("back")
+    const user = await User.findById({ _id: req.params.id }).select('-password')
 
+    if (user) {
+      res.json(user)
+    } else {
+      res.status(401)
+      throw new Error('No users found')
+    }
+  })
+)
 router.delete(
   '/:id',
   protect,
   admin,
   asyncHandler(async (req, res) => {
     try {
-    
       await User.findByIdAndDelete({ _id: req.params.id })
-      res.status(201).json("Successfully deleted")
+      res.status(201).json('Successfully deleted')
     } catch (error) {
       res.status(401)
       throw new Error('No users found')
