@@ -10,7 +10,7 @@ connectDB()
 
 const app = express()
 app.use(express.json())
-const PORT = 5000 || process.env.PORT
+const PORT = process.env.PORT || 5000
 const __dirname = path.resolve()
 
 app.use('/api/products', productRoutes)
