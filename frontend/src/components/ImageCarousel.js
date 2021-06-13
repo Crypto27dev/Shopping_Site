@@ -13,16 +13,17 @@ const ImageCarousel = () => {
     <div className='slide-container'>
       {loading && <Loading />}
       <Slide className='manageSlide'>
-        {products.map((items) => (
-          <div className='each-slide' key={items._id}>
-            <Link
-              to={`/category/${items.category}/${items.subCategory}/${items._id}`}
-            >
-              {' '}
-              <img src={items.image} alt='' />
-            </Link>
-          </div>
-        ))}
+        {products &&
+          products.map((items) => (
+            <div className='each-slide' key={items._id}>
+              <Link
+                to={`/category/${items.category}/${items.subCategory}/${items._id}`}
+              >
+                {' '}
+                <img src={items.image} alt='' />
+              </Link>
+            </div>
+          ))}
       </Slide>
     </div>
   )
