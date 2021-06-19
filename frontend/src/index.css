@@ -1148,8 +1148,16 @@ padding:10px;
 
 .pay{
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  align-items: left;
+  flex-direction: column;
+  justify-content: center;
+  gap:10px;
+}
+
+.pay-control label{
+  padding: 10px;
+
+
 }
 .pay span{
   font-size: 30px;
@@ -1408,3 +1416,11 @@ border-radius: 5px;
     padding: 6px;
   }
 
+:disabled{
+  opacity: 0.5;
+}
+
+:disabled:hover{
+  cursor: unset;
+  opacity: 0.5;
+}

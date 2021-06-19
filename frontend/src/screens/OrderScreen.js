@@ -4,6 +4,7 @@ import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
+import axios from 'axios'
 import Loading from '../components/Loading'
 const OrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -33,6 +34,34 @@ const OrderScreen = ({ history }) => {
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error, loading } = orderCreate
+  const paymentInfo = {
+    amt: cart.itemsPrice,
+    psc: 0,
+    pdc: cart.shippingPrice,
+    txAmt: cart.taxPrice,
+    tAmt: cart.totalPrice,
+    pid: 'Sdfsdfsdfsdfsdf',
+    scd: 'EPAYTEST',
+    su: 'http://merchant.com.np/page/esewa_payment_success',
+    fu: 'http://merchant.com.np/page/esewa_payment_failed',
+  }
+  const payNowHandler = async () => {
+    const config = {
+      withCredentials: false,
+
+      headers: {
+        'Content-Type': 'application/json',
+
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      },
+    }
+    const { data } = await axios.post(`https://uat.esewa.com.np/epay/main`, {
+      paymentInfo,
+      config,
+    })
+    console.log('the data is', data)
+  }
   useEffect(() => {
     !userInfo && history.push('/')
     dispatch({ type: ORDER_CREATE_RESET })
@@ -119,6 +148,13 @@ const OrderScreen = ({ history }) => {
               <span>Total</span>
               <span>Rs. {cart.totalPrice}</span>
             </div>
+            <button
+              className='placeorder-btn'
+              disabled={cart.paymentMethod !== 'Esewa'}
+              onClick={payNowHandler}
+            >
+              Pay Now
+            </button>
             <button
               className='placeorder-btn'
               disabled={cart.cartItems === 0}
