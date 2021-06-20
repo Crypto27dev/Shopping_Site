@@ -51,15 +51,14 @@ const OrderScreen = ({ history }) => {
 
       headers: {
         'Content-Type': 'application/json',
-
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       },
     }
-    const { data } = await axios.post(`https://uat.esewa.com.np/epay/main`, {
+    const { data } = await axios.post(
+      'https://cors-anywhere.herokuapp.com/https://uat.esewa.com.np/epay/main',
+
       paymentInfo,
-      config,
-    })
+      config
+    )
     console.log('the data is', data)
   }
   useEffect(() => {
