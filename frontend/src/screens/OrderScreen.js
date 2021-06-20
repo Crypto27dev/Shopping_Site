@@ -35,32 +35,36 @@ const OrderScreen = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error, loading } = orderCreate
   const paymentInfo = {
-    amt: cart.itemsPrice,
+    amt: parseInt(cart.itemsPrice),
     psc: 0,
-    pdc: cart.shippingPrice,
-    txAmt: cart.taxPrice,
-    tAmt: cart.totalPrice,
-    pid: 'Sdfsdfsdfsdfsdf',
+    pdc: parseInt(cart.shippingPrice),
+    txAmt: parseInt(cart.taxPrice),
+    tAmt: parseInt(cart.totalPrice),
+    pid: 'ee2c3ca1-696b-4cc5-a6be-2c40d929d453',
     scd: 'EPAYTEST',
-    su: 'http://merchant.com.np/page/esewa_payment_success',
-    fu: 'http://merchant.com.np/page/esewa_payment_failed',
+    su: 'localhost:3000/merchant.com.np/page/esewa_payment_success',
+    fu: 'localhost:3000/merchant.com.np/page/esewa_payment_failed',
   }
+  console.log('paymentInfo', paymentInfo)
   const payNowHandler = async () => {
-    const config = {
-      withCredentials: false,
+    console.log('hello')
+    // const config = {
+    //   withCredentials: false,
 
-      headers: {
-        'Content-Type': 'application/json',
-
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      },
-    }
-    const { data } = await axios.post(`https://uat.esewa.com.np/epay/main`, {
-      paymentInfo,
-      config,
-    })
-    console.log('the data is', data)
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // }
+    // const { data } = await axios.post(
+    //   `https://cors-anywhere.herokuapp.com/https://uat.esewa.com.np/epay/main`,
+    //   {
+    //     paymentInfo,
+    //     config,
+    //   }
+    // )
+    // data && history.push('https://uat.esewa.com.np/epay/main')
+    // console.log('the data is', data)
+    // console.log('the error is', error)
   }
   useEffect(() => {
     !userInfo && history.push('/')
