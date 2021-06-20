@@ -51,6 +51,7 @@ const OrderScreen = ({ history }) => {
     // const config = {
     //   withCredentials: false,
 
+<<<<<<< HEAD
     //   headers: {
     //     'Content-Type': 'application/json',
     //   },
@@ -65,6 +66,19 @@ const OrderScreen = ({ history }) => {
     // data && history.push('https://uat.esewa.com.np/epay/main')
     // console.log('the data is', data)
     // console.log('the error is', error)
+=======
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    const { data } = await axios.post(
+      'https://cors-anywhere.herokuapp.com/https://uat.esewa.com.np/epay/main',
+
+      paymentInfo,
+      config
+    )
+    console.log('the data is', data)
+>>>>>>> new_master
   }
   useEffect(() => {
     !userInfo && history.push('/')
