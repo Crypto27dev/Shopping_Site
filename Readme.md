@@ -44,7 +44,7 @@ Link to the website [Click here](https://lit-sands-82234.herokuapp.com/)
 </p>
 
 #### How to get Started?
-
+At first clone this repo.
 Install the backend dependencies on root folder using `npm install` command.
 
 Set your own credentials for cloudinary and mongodb database on the root folder inside a .env file like below-
@@ -77,5 +77,7 @@ REACT_APP_MEASUREMENTID="Your measurementId"
 ```
 
 Note:You can get all these firebase credentials easily by creating a firebase project. You can do this easily by watching youtube videos.
+
+##### After that move to root folder and run `npm run dev` to start backend and frontend at the same time.
 
 And there you go...boom!
