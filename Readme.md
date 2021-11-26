@@ -1,5 +1,7 @@
 # A complete MERN ecommerce website
 
+Please give this repo a star if this project helped you in any way. This will mean a lot to me and motivate me more to bring this type of project.
+
 This contains all the features that an ecommerce website should have.
 Link to the website [Click here](https://lit-sands-82234.herokuapp.com/)
 
